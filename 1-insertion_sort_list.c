@@ -1,4 +1,5 @@
 #include "sort.h"
+#include <stdio.h>
 
 /**
  * insertion_sort_list - sorts a DLL of integers in
@@ -10,17 +11,37 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-if(!list)
-    return;
-    for (int i = 1; i < 1000; i++) {
-        int key = list[i];
-        int j = i - 1;
+	listint_t *ptr, *tmp;
 
-        while (j >= 0 && list[j] > key) {
-            list[j + 1] = list[j];
-            j--;
-            }
-        list[j + 1] = key;
-    }
+	if (!list)
+		return;
+
+	ptr = *list;
+
+	while (ptr)
+	{
+		while (ptr->next && (ptr->n > ptr->next->n))
+		{
+			tmp = ptr->next;
+			ptr->next = tmp->next;
+			tmp->prev = ptr->prev;
+
+			if (ptr->prev)
+				ptr->prev->next = tmp;
+
+			if (tmp->next)
+				tmp->next->prev = ptr;
+
+			ptr->prev = tmp;
+			tmp->next = ptr;
+
+			if (tmp->prev)
+				ptr = tmp->prev;
+			else
+				*list = tmp;
+
+			print_list(*list);
+		}
+		ptr = ptr->next;
+	}
 }
-
