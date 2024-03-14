@@ -10,16 +10,16 @@
  */
 void insertion_sort_list(listint_t **list)
 {
-    if(!list)
+if(!list)
     return;
- for (int i = 1; i < 1000; i++) {
+    for (int i = 1; i < 1000; i++) {
         int key = list[i];
         int j = i - 1;
 
         while (j >= 0 && list[j] > key) {
             list[j + 1] = list[j];
             j--;
-        }
+            }
         list[j + 1] = key;
     }
 }
